@@ -20,7 +20,7 @@ const userSchema=new Schema<IUser>(
     },
     password:{
       type:String,
-      required:[true,"Email is required"],
+      required:[true,"password is required"],
     }
   },
   {timestamps:true}

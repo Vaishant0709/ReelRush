@@ -1,32 +1,30 @@
-"use client"
-import { apiClient } from "@/lib/api-clients";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import VideoFeed from "./components/VideoFeed";
 import { IVideo } from "@/models/Video";
-import Image from "next/image";
-import { useEffect,useState } from "react";
+import { apiClient } from "@/lib/api-clients";
 
 export default function Home() {
-  
+  const [videos, setVideos] = useState<IVideo[]>([]);
 
-  const [videos,setVideos] = useState<IVideo[]>([])
-
-  useEffect(()=>{
-    const fetchVideos=async () =>{
+  useEffect(() => {
+    const fetchVideos = async () => {
       try {
-        const data=await apiClient.getVideo()
-        setVideos(data)
+        const data = await apiClient.getVideos();
+        setVideos(data);
       } catch (error) {
-        console.log(`ERROR :: FETCHING VIDEOS :: ${error}`);
-        
+        console.error("Error fetching videos:", error);
       }
+    };
 
-    }
-    fetchVideos()
-  },[])
-  
+    fetchVideos();
+  }, []);
+
   return (
-    <div>
-      <h1>ReelRush</h1>
-    </div>
-
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">ImageKit ReelsPro</h1>
+      <VideoFeed videos={videos} />
+    </main>
   );
 }

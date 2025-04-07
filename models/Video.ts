@@ -29,7 +29,7 @@ const videoSchema=new Schema<IVideo>(
     },
     description:{
       type:String,
-      required:[true,"description is required"]
+      required:[true,"Description is required"]
     },
     videoUrl:{
       type:String,
@@ -37,7 +37,7 @@ const videoSchema=new Schema<IVideo>(
     },
     thumbnailUrl:{
       type:String,
-      required:[true,"Video is required"]
+      required:[true,"Thumbnail is required"]
     },
     controls:{
       type:Boolean,

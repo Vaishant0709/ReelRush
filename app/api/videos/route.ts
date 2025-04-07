@@ -2,7 +2,7 @@ import { authOptions } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
 import Video, { IVideo } from "@/models/Video";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET(){
@@ -34,7 +34,7 @@ export async function GET(){
 }
 
 
-export async function POST(request : NextResponse){
+export async function POST(request : NextRequest){
   try {
     const session=await getServerSession(authOptions);
 
@@ -57,18 +57,18 @@ export async function POST(request : NextResponse){
 
     const videoData={
       ...body,
-      controls : body.controls || true,
+      controls : body.controls ?? true,
       transformation:{
         height:1920,
         width:1080,
-        quality : body.transformation?.quality || 100
+        quality : body.transformation?.quality ?? 100
       }
-    }
+    };
 
     const newVideo=await Video.create(videoData);
 
     return NextResponse.json(newVideo,{status:200})
-  } catch (error) {;
+  } catch (error) {
     console.log(`ERROR :: POST VIDEO "" ${error}`);
     return NextResponse.json(
       {error : "Failed to upload video"},
