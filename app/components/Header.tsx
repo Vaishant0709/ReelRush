@@ -8,6 +8,7 @@ import { useNotification } from "./Notifications";
 export default function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
+  console.log(session);
 
   const handleSignOut = async () => {
     try {

@@ -20,7 +20,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <SessionProvider refetchInterval={5 * 60}>
+    <SessionProvider  
+    refetchInterval={0} 
+    refetchOnWindowFocus={true}>
       <NotificationProvider>
         <ImageKitProvider
           publicKey={publicKey}

@@ -40,7 +40,7 @@ export default function Login() {
         <div className="flex justify-center mb-8">
           <div className="flex items-center gap-3">
             <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-2 rounded-lg shadow-lg">
-              <LogIn className="w-6 h-6 text-white" />
+              {/* <LogIn className="w-6 h-6 text-white" /> */}
             </div>
             <h1 className="text-3xl font-bold">
               <span className="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Welcome</span>
