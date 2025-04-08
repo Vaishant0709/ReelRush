@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { Home, User } from "lucide-react";
+import { Home, User, Upload, LogOut } from "lucide-react";
 import { useNotification } from "./Notifications";
 
 export default function Header() {
@@ -19,79 +19,72 @@ export default function Header() {
   };
 
   return (
-    <div className="navbar bg-base-300 sticky top-0 z-40">
+    <div className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-purple-900/20 shadow-lg">
       <div className="container mx-auto">
-        <div className="flex-1 px-2 lg:flex-none">
+        <div className="flex items-center justify-between h-16 px-4">
           <Link
             href="/"
-            className="btn btn-ghost text-xl gap-2 normal-case font-bold"
+            className="flex items-center gap-2 text-xl font-bold transition-all hover:opacity-80"
             prefetch={true}
             onClick={() =>
-              showNotification("Welcome to ImageKit ReelsPro", "info")
+              showNotification("Welcome to ReelRush", "info")
             }
           >
-            <Home className="w-5 h-5" />
-            ImageKit ReelsPro
+            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-1.5 rounded-md">
+              <Home className="w-4 h-4 text-white" />
+            </div>
+            <span className="bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">Reel</span>
+            <span className="text-white">Rush</span>
           </Link>
-        </div>
-        <div className="flex flex-1 justify-end px-2">
-          <div className="flex items-stretch gap-2">
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle"
-              >
-                <User className="w-5 h-5" />
-              </div>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] shadow-lg bg-base-100 rounded-box w-64 mt-4 py-2"
-              >
-                {session ? (
-                  <>
-                    <li className="px-4 py-1">
-                      <span className="text-sm opacity-70">
-                        {session.user?.email?.split("@")[0]}
-                      </span>
-                    </li>
-                    <div className="divider my-1"></div>
 
-                    <li>
-                      <Link
-                        href="/upload"
-                        className="px-4 py-2 hover:bg-base-200 block w-full"
-                        onClick={() =>
-                          showNotification("Welcome to Admin Dashboard", "info")
-                        }
-                      >
-                        Video Upload
-                      </Link>
-                    </li>
-
-                    <li>
-                      <button
-                        onClick={handleSignOut}
-                        className="px-4 py-2 text-error hover:bg-base-200 w-full text-left"
-                      >
-                        Sign Out
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <li>
-                    <Link
-                      href="/login"
-                      className="px-4 py-2 hover:bg-base-200 block w-full"
-                      onClick={() =>
-                        showNotification("Please sign in to continue", "info")
-                      }
-                    >
-                      Login
-                    </Link>
-                  </li>
-                )}
-              </ul>
+          <div className="relative group">
+            <button 
+              className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 text-white transition-colors border border-purple-800/30"
+              aria-label="User menu"
+            >
+              <User className="w-5 h-5" />
+            </button>
+            
+            <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-xl bg-slate-800 shadow-xl border border-purple-800/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              {session ? (
+                <div className="py-2">
+                  <div className="px-4 py-3 border-b border-slate-700">
+                    <p className="text-sm text-slate-400">Signed in as</p>
+                    <p className="text-sm font-medium text-white truncate">
+                      {session.user?.email}
+                    </p>
+                  </div>
+                  
+                  <Link
+                    href="/upload"
+                    className="flex items-center gap-2 px-4 py-2.5 text-white hover:bg-slate-700 w-full text-left"
+                    onClick={() =>
+                      showNotification("Welcome to Upload Dashboard", "info")
+                    }
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span>Upload Video</span>
+                  </Link>
+                  
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-2 px-4 py-2.5 text-red-400 hover:bg-slate-700 w-full text-left"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center gap-2 px-4 py-3 text-white hover:bg-slate-700 rounded-xl w-full"
+                  onClick={() =>
+                    showNotification("Please sign in to continue", "info")
+                  }
+                >
+                  <span>Login to Your Account</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
